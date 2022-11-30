@@ -19,7 +19,7 @@ const userRoutes = require("./routes/users");
 const placesRoutes = require("./routes/places");
 const reviewsRoutes = require("./routes/reviews");
 const MongoStore = require("connect-mongo");
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/india-tour";
+const dbUrl = "mongodb://localhost:27017/india-tour";
 main().catch(err => console.log("Error", err));
 
 async function main() {
@@ -61,10 +61,10 @@ const sessionConfig = {
 	store,
 	resave: false,
 	saveUninitialized: true,
-	proxy: true,
+	// proxy: true,
 	cookie: {
 		httpOnly: true,
-		secure: true,
+		// secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
 		maxAge: 1000 * 60 * 60 * 24 * 7
 	}
@@ -104,6 +104,7 @@ const connectSrcUrls = [
 	"https://ka-f.fontawesome.com"
 ];
 const fontSrcUrls = ["https://fonts.gstatic.com", "https://ka-f.fontawesome.com"];
+const formActionSrc = ["https://formsubmit.co/kbhandary672@gmail.com"];
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
@@ -114,6 +115,7 @@ app.use(
 			workerSrc: ["'self'", "blob:"],
 			childSrc: ["blob:"],
 			objectSrc: [],
+			formAction: ["'self'", ...formActionSrc],
 			imgSrc: [
 				"'self'",
 				"blob:",
