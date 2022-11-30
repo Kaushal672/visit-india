@@ -1,0 +1,80 @@
+body {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/5770.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+}
+
+.container-fluid {
+	max-width: 95vw;
+}
+
+.nav-link {
+	padding: 0.25rem 0;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.5);
+	margin-left: 1rem;
+	border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover {
+	border-bottom-color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.5);
+	border-width: 3px;
+}
+
+.nav-link.active {
+	color: white;
+	border-bottom-color: white;
+	border-width: 3px;
+}
+
+.btn-secondary,
+.btn-secondary:hover {
+	color: #333;
+	text-shadow: none;
+}
+
+#logo {
+	width: 100%;
+	height: 6vh;
+	object-fit: contain;
+}
+
+.home_title {
+	font-family: "Itim", sans-serif;
+	font-size: 10vw;
+}
+
+.greet {
+	font-family: "Sen", cursive;
+}
+
+.button {
+	display: inline-block;
+	text-decoration: none;
+	text-align: center;
+	vertical-align: middle;
+	color: #ffbb00;
+	padding: 8px 40px;
+	border: 1px solid #ffbb00;
+	border-radius: 20px;
+	transition: all 0.3s;
+	font-family: "Poppins", Arial, Helvetica, sans-serif;
+	user-select: none;
+}
+
+.button:focus {
+	background-color: #e1a705 !important;
+	color: #fff;
+	border-color: #e1a705 !important;
+}
+
+.button:hover {
+	background-color: #ffbb00;
+	color: #fff;
+}

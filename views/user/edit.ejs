@@ -1,0 +1,64 @@
+<% layout('layout/boilerplate') %>
+<%- include('../partials/navbar') %>
+<% layout('layout/boilerplate') %>
+<div class="container justify-content-center align-items-center my-5">
+	<div class="row">
+		<div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 mb-5">
+			<div class="card shadow">
+				<div class="card-body px-4">
+					<h3 class="mb-3 text-center">Edit User</h3>
+					<form action="/user/<%=user._id%>?_method=PUT" method="post" enctype="multipart/form-data" novalidate class="validated-form">
+						<div class="mb-3">
+							<div id="profile_container">
+								<img id="profileImage" crossorigin="anonymous" src="<%=user.avatar[0].avatar%>" />
+							</div>
+							<input id="imageUpload" type="file" name="avatar" accept="image/jpeg, image/jpg, image/png" capture>
+						</div>
+						<div class="mb-3">
+							<label for="username" class="form-label">Username</label>
+							<input class="form-control" type="text" id="username" name="User[username]" value="<%=user.username %>" required autofocus />
+							<div class="invalid-feedback">Please Enter a Username</div>
+						</div>
+						<div class="mb-3">
+							<label for="firstName" class="form-label">First Name</label>
+							<input class="form-control" type="text" id="firstName" name="User[firstName]" value="<%=user.firstName %>" required />
+							<div class="invalid-feedback">Please Enter a First Name</div>
+						</div>
+						<div class="mb-3">
+							<label for="lastName" class="form-label">Last Name</label>
+							<input class="form-control" type="text" id="lastName" name="User[lastName]" value="<%=user.lastName %>" />
+							<div class="invalid-feedback">Please Enter a Last Name</div>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label>
+							<input class="form-control" type="email" id="email" name="User[email]" value="<%=user.email %>" required />
+							<div class="invalid-feedback">Please Enter a valid Email</div>
+						</div>
+						<div class="d-grid gap-2">
+							<button class="btn btn-success btn-block">Done</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('../partials/subfooter') %>
+<script>
+	document.querySelector("#profile_container").addEventListener('click', (e) => {
+		document.querySelector("#imageUpload").click();
+	});
+	const inp = document.querySelector('#imageUpload');
+	inp.addEventListener('change', function (e) {
+		if (inp.files.length) {
+			const file = this.files[0];
+			const reader = new FileReader();
+			reader.onload = function () {
+				document.querySelector('#profileImage').src = this.result;
+			};
+			reader.readAsDataURL(file);
+		} else {
+			document.querySelector('#profileImage').src = '<%=user.avatar[0].url %>';
+		}
+	});
+</script>

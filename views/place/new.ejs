@@ -1,0 +1,85 @@
+<% layout('layout/boilerplate') %>
+<%- include('../partials/navbar') %>
+<div class="container my-5">
+	<div class="row">
+		<h1 class="text-center">New Tour Place</h1>
+		<div class="col-md-6 offset-md-3">
+			<form action="/places" method="post" novalidate class="validated-form" enctype="multipart/form-data" onsubmit="return validate(event)">
+				<div class="mb-3">
+					<label for="title" class="form-label">Title</label>
+					<input class="form-control" type="text" id="title" name="place[title]" required>
+					<div class="invalid-feedback">
+						Please give a valid title.
+					</div>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="location">Location</label>
+					<input class="form-control" type="text" id="location" name="place[location]" required>
+					<div class="invalid-feedback">
+						Please give a valid location.
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="region">Region</label>
+						<input class="form-control" type="text" id="region" name="place[Region]" placeholder="South East" required>
+						<p class="text-muted">Please add north or south to display your tourist place</p>
+						<div class="invalid-feedback">
+							Please give a valid region.
+						</div>
+					</div>
+					<div class="mb-3">
+						<label for="price" class="form-label">Price</label>
+						<div class="input-group">
+							<span class="input-group-text">&#8377;</span>
+							<input type="text" class="form-control" aria-label="price-label" id="price" name="place[price]" required />
+							<div class="invalid-feedback">Please Enter a Price</div>
+						</div>
+					</div>
+					<div class="mb-3 custom-file">
+						<label for="image" class="form-label">Choose Images</label>
+						<input class="form-control bs-custom-file-input" type="file" accept="image/jpeg, image/jpg, image/png" name="image" id="image" multiple>
+						<p class="error mb-1">Please upload minimum of 1 and maximum of 3 images</p>
+						<label for="image" class="custom-file-label text-muted text-truncate"></label>
+					</div>
+					<div class="my-3">
+						<label class="form-label" for=description">Description</label>
+						<textarea class="form-control" name="place[description]" id="description" cols="30" rows="5" required></textarea>
+						<div class="invalid-feedback">
+							Please write a description.
+						</div>
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for=description">Things to do</label>
+						<textarea class="form-control" name="place[ThingsToDo]" id="description" cols="30" rows="5"></textarea>
+						<div class="invalid-feedback">
+							Please write a Things To Do.
+						</div>
+					</div>
+					<div class="mb-3">
+						<button class="btn btn-success">Add Place</button>
+					</div>
+					<a href="/places">Cancel</a>
+			</form>
+		</div>
+	</div>
+</div>
+<%- include('../partials/subfooter') %>
+<script>
+	const uploader = document.querySelector('input[type=file]');
+	const error = document.querySelector('.error');
+
+	function validate(e) {
+		if (uploader.files.length < 1 || uploader.files.length > 3) {
+			error.style.display = 'block';
+			e.preventDefault();
+			return false;
+		}
+	}
+	uploader.addEventListener('change', function () {
+		const disp = window.getComputedStyle(error).display;
+		if (disp === 'block' && (uploader.files.length > 0 && uploader.files.length < 4)) {
+			error.style.display = 'none';
+		} else if (disp === 'none' && (uploader.files.length < 1 || uploader.files.length > 3)) {
+			error.style.display = 'block'
+		}
+	})
+</script>

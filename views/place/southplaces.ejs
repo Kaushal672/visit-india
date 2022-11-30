@@ -1,0 +1,80 @@
+<% layout('layout/boilerplate') %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" crossorigin="anonymous" />
+<link rel="stylesheet" href="/stylesheet/carouseltransition.css">
+<%- include('../partials/navbar') %>
+<section class="slider_container southslide swiper mb-3">
+	<div class="slide_wrapper swiper-wrapper">
+		<div class="slide swiper-slide" id="firstSlide">
+			<img src="/images/mysorepalaceCopy.jpg" class="img-fluid firstImg" alt="">
+			<div class="image_description">
+				<span class="image_title animate__animated">Visit the second most visited monument in India</span>
+				<p class="image_slogan animate__animated">"Mysore is known for its rich cultural heritage, majestic monuments, rich history museums and arts."</p>
+			</div>
+		</div>
+		<div class="slide swiper-slide" id="secondSlide">
+			<img src="/images/keralaCopy.jpg" class="img-fluid secondImg" alt="">
+			<div class="image_description">
+				<span class="image_title  animate__animated">Admire the cultural heritage of Kerala</span>
+				<p class="image_slogan animate__animated">"God's own country or a heaven on earth. Place of full mountains, greenery and streams."</p>
+			</div>
+		</div>
+		<div class="slide swiper-slide" id="thirdSlide">
+			<img src="/images/ootyCopy.jpg" class="img-fluid thirdImg" alt="">
+			<div class="image_description">
+				<span class="image_title animate__animated">Embrace greenery in Coorg</span>
+				<p class="image_slogan animate__animated">"Head to Coorg now to get the green therapy, sip the freshly brewed coffe & live like Kodavas."</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="container my-5">
+	<div class="row">
+		<h3 class="mb-3">Must visit cities in South India</h3>
+		<% for(let place of southTopDest) {%>
+		<div class="col-xl-3 col-lg-4 col-md-6 d-flex align-items-stretch justify-content-center">
+			<div class="card mb-4 box">
+				<% if(place.images.length) {%>
+				<img class="img-fluid" crossorigin="anonymous" id="cardImg" src="<%= place.images[0].thumbnail %>" alt="">
+				<% }else { %>
+				<img class="img-fluid" crossorigin="anonymous" id="cardImg" src="https://res.cloudinary.com/dlds2z087/image/upload/w_300,h_250/v1668058755/raghu-nayyar-dskdujAQU44-unsplash_pmerzy.jpg" alt="">
+				<% } %>
+				<div class="card-body text_truncation">
+					<h5 class="card-title"><%=place.title %></h5>
+					<h6 class="card-subtitle mb-2 text-muted"><%=place.location%></h6>
+					<h6 class="card-subtitle mb-2">From &#x20B9; <%=place.price%></h6>
+					<p class="card-text text-truncate mb-1"><%=place.description%></p>
+					<a href="/places/<%= place._id %>" class="stretched-link"></a>
+				</div>
+			</div>
+		</div>
+		<% } %>
+	</div>
+</div>
+<%- include('../partials/homefooter') %>
+<div class="container my-5">
+	<div class="row">
+		<h3 class="mb-3">All Places in South India</h3>
+		<% for(let place of southPlaces) {%>
+		<div class="col-xl-3 col-lg-4 col-md-6 d-flex align-items-stretch justify-content-center">
+			<div class="card mb-4 box">
+				<% if(place.images.length) {%>
+				<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="<%= place.images[0].thumbnail %>" alt="">
+				<% }else { %>
+				<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="https://res.cloudinary.com/dlds2z087/image/upload/w_300,h_250/v1668058755/raghu-nayyar-dskdujAQU44-unsplash_pmerzy.jpg" alt="">
+				<% } %>
+				<div class="card-body text_truncation">
+					<h5 class="card-title"><%=place.title %></h5>
+					<h6 class="card-subtitle mb-2 text-muted"><%=place.location%></h6>
+					<h6 class="card-subtitle mb-2">From &#x20B9; <%=place.price%></h6>
+					<p class="card-text text-truncate mb-1"><%=place.description%></p>
+					<a href="/places/<%= place._id %>" class="stretched-link"></a>
+				</div>
+			</div>
+		</div>
+		<% } %>
+	</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" crossorigin="anonymous"></script>
+<script src="/javascript/carouselTransition.js"></script>

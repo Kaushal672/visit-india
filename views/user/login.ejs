@@ -1,0 +1,31 @@
+<% layout('layout/boilerplate') %>
+<%- include('../partials/navbar') %>
+<div class="container justify-content-center align-items-center my-5">
+	<div class="row">
+		<div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+			<div class="card shadow">
+				<img src="/images/5773.jpg" alt="" class="card-img-top">
+				<div class="card-body">
+					<h5 class="card-title">Log In</h5>
+					<form action="/login" method="post" class="validated-form" novalidate>
+						<div class="mb-3">
+							<label for="username" class="form-label">Username</label>
+							<input class="form-control" type="text" id="username" name="username" required autofocus />
+							<div class="invalid-feedback">Please Enter a Username</div>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label">Password</label>
+							<input class="form-control" type="password" id="password" name="password" autocomplete="on" required />
+							<div class="invalid-feedback">Please Enter a valid Password</div>
+						</div>
+						<div class="d-grid gap-2">
+							<button class="btn btn-success btn-block">Log in</button>
+						</div>
+					</form>
+					<p class="text-center mt-2">Don't have an account? <a href="/register">Register</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('../partials/subfooter') %>

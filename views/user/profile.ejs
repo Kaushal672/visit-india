@@ -1,0 +1,52 @@
+<% layout('layout/boilerplate') %>
+<%- include('../partials/navbar') %>
+<div class="container my-5">
+	<div class="row">
+		<div class="col-md-6">
+			<h4><%= user.username %></h4>
+			<div class="avatar_img">
+				<% if(user.avatar.length){ %>
+				<img crossorigin="anonymous" src="<%= user.avatar[0].avatar %>" alt="">
+				<% }else { %>
+				<img crossorigin="anonymous" src="https://res.cloudinary.com/dlds2z087/image/upload/v1669354509/India%20Tour/default_avatar_fbyzfp.jpg" alt="">
+				<% } %>
+			</div>
+			<% if(currentUser  && user.equals(currentUser) && !(user.avatar[0].filename==="India Tour/default_avatar_fbyzfp")){ %>
+			<div class="mt-3">
+				<form action="/user/<%=user._id%>?_method=delete" method="post">
+					<button class="btn btn-sm btn-outline-danger">Remove Profile Picture</button>
+				</form>
+			</div>
+			<% } %>
+			<div class="my-4">
+				<div class="mb-2"><i class="fa-solid fa-user me-2"></i><span><%= user.firstName %> <%= user.lastName %></span><br></div>
+				<div class="mb-2"><i class="fa-regular fa-envelope me-2"></i><span><a class="nondecorated_anchor" href="mailto:<%=user.email%>"><%=user.email%></a></span></div>
+				<p>Joined on: <%=user.createdAt%></p>
+			</div>
+			<% if(currentUser  && user.equals(currentUser)){ %>
+			<div class="profile_btn edit_profile">
+				<a class="nondecorated_anchor" href="/user/<%= user._id%>/edit">Edit Profile</a>
+			</div>
+			<% } %>
+			<% if(currentUser  && user.equals(currentUser)){ %>
+			<div class="my-2 profile_btn logout">
+				<a class="nondecorated_anchor logout_text" href="/logout">Logout</a>
+			</div>
+			<% } %>
+		</div>
+		<% if(Places.length) {%>
+		<div class="col-md-6 mt-2">
+			<h4>Tour Guides By <%=user.username%></h4>
+			<% for(let place of Places){%>
+			<div class="row mb-3">
+				<div class="col">
+					<p class="mb-0"><b><a class="nondecorated_anchor" href="/places/<%= place._id%>"><%= place.title %></a></b></p>
+					<span><%= place.location %></span>
+				</div>
+			</div>
+			<% } %>
+		</div>
+		<% } %>
+	</div>
+</div>
+<%- include('../partials/subfooter') %>

@@ -1,0 +1,100 @@
+<% layout('layout/boilerplate') %>
+<%- include('../partials/navbar') %>
+<% layout('layout/boilerplate') %>
+<div class="container justify-content-center align-items-center my-5">
+	<div class="row">
+		<div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 mb-5">
+			<div class="card shadow">
+				<div class="card-body px-4">
+					<h3 class="mb-3 text-center">Register</h3>
+					<form action="/register" method="post" class="validated-form" enctype="multipart/form-data" novalidate>
+						<div class="mb-3">
+							<div id="profile_container">
+								<img id="profileImage" crossorigin="anonymous" src="https://res.cloudinary.com/dlds2z087/image/upload/v1669354509/India%20Tour/default_avatar_fbyzfp.jpg" />
+							</div>
+							<input id="imageUpload" type="file" name="avatar" accept="image/jpeg, image/jpg, image/png" capture>
+						</div>
+						<div class="mb-3">
+							<label for="username" class="form-label">Username</label>
+							<input class="form-control" type="text" id="username" name="username" required autofocus />
+							<div class="invalid-feedback">Please Enter a Username</div>
+						</div>
+						<div class="mb-3">
+							<label for="firstName" class="form-label">First Name</label>
+							<input class="form-control" type="text" id="firstName" name="firstname" required />
+							<div class="invalid-feedback">Please Enter a First Name</div>
+						</div>
+						<div class="mb-3">
+							<label for="lastName" class="form-label">Last Name</label>
+							<input class="form-control" type="text" id="lastName" name="lastname" />
+							<div class="invalid-feedback">Please Enter a Last Name</div>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label>
+							<input class="form-control" type="email" id="email" name="email" required />
+							<div class="invalid-feedback">Please Enter a valid Email</div>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label">Password</label>
+							<input class="form-control" type="password" id="password" name="password" autocomplete="on" required />
+							<div class="invalid-feedback">Please Enter a valid Password</div>
+						</div>
+						<div class="mb-3">
+							<label for="confirmPassword" class="form-label">Confirm Password</label>
+							<input class="form-control" type="password" id="confirmPassword" autocomplete="on" required />
+							<span id='message'></span>
+						</div>
+						<div class="d-grid gap-2">
+							<button class="btn btn-success submit-btn btn-block">Register</button>
+						</div>
+					</form>
+					<p class="text-center mt-2">Already have an account? <a href="/login">Log In</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('../partials/subfooter') %>
+<script>
+	const pw = document.querySelector('#password');
+	const confirmPW = document.querySelector('#confirmPassword');
+	confirmPW.addEventListener('input', () => {
+		if (pw.value === confirmPW.value) {
+			document.getElementById('message').style.color = 'green';
+			document.getElementById('message').innerHTML = 'Matching';
+			document.querySelector('.submit-btn').disabled = false;
+		} else {
+			document.getElementById('message').style.color = 'red';
+			document.getElementById('message').innerHTML = 'Not matching';
+			document.querySelector('.submit-btn').disabled = true;
+		}
+	})
+	pw.addEventListener('input', () => {
+		if (pw.value === confirmPW.value) {
+			document.getElementById('message').style.color = 'green';
+			document.getElementById('message').innerHTML = 'Matching';
+			document.querySelector('.submit-btn').disabled = false;
+		} else {
+			document.getElementById('message').style.color = 'red';
+			document.getElementById('message').innerHTML = 'Not matching';
+			document.querySelector('.submit-btn').disabled = true;
+		}
+	})
+	document.querySelector("#profile_container").addEventListener('click', (e) => {
+		document.querySelector("#imageUpload").click();
+	});
+
+	const inp = document.querySelector('#imageUpload');
+	inp.addEventListener('change', function (e) {
+		if (inp.files.length) {
+			const file = this.files[0];
+			const reader = new FileReader();
+			reader.onload = function () {
+				document.querySelector('#profileImage').src = this.result;
+			};
+			reader.readAsDataURL(file);
+		} else {
+			document.querySelector('#profileImage').src = 'https://res.cloudinary.com/dlds2z087/image/upload/v1669354509/India%20Tour/default_avatar_fbyzfp.jpg';
+		}
+	});
+</script>

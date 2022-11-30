@@ -1,0 +1,156 @@
+<% layout('layout/boilerplate') %>
+<link rel="stylesheet" href="/stylesheet/starability-grow.min.css" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.10.0/mapbox-gl.min.css" integrity="sha512-Wrc9YCdBwmoXlSZVGgjLlcda8Iy0bPYwj2u8+/5VEhd3aMOTzu/bfl6ho4ma17rPu1uwjQCOqSNHSUvDg+lRPw==" crossorigin="anonymous"
+	referrerpolicy="no-referrer" />
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js' crossorigin="anonymous"></script>
+<%- include('../partials/navbar') %>
+<div class="container my-4">
+	<div class=" row">
+		<div class="col-md-12">
+			<h1 class="mb-3"><%= place.title %></h1>
+			<div id="placeCarousel" class="carousel slide" data-bs-interval="4000" data-bs-ride="carousel">
+				<% if(place.images.length>1){ %>
+				<div class="carousel-indicators">
+					<% place.images.forEach((img,i) =>{%>
+					<button type="button" data-bs-target="#placeCarousel" data-bs-slide-to="<%= i %>" class="<%= i===0 ? 'active' : '' %>" aria-current="" aria-label=""></button>
+					<% })%>
+				</div>
+				<% } %>
+				<div class="carousel-inner">
+					<% place.images.forEach((img,i) =>{%>
+					<div class="carousel-item <%= i===0 ? 'active' : '' %>">
+						<img src="<%=img.showImg%>" crossorigin="anonymous" class="d-block w-100" id="showImg" alt="">
+					</div>
+					<% })%>
+				</div>
+				<% if(place.images.length>1){ %>
+				<button class="carousel-control-prev" type="button" data-bs-target="#placeCarousel" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#placeCarousel" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+				<% } %>
+			</div>
+			<div class="my-4 p-4 place_desc">
+				<div>
+					<p class="mb-1"><%=place.description %></p>
+				</div>
+				<div>
+					<p class="text-muted mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+							<path
+								d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+							<path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+						</svg> <%= place.location %>
+					</p>
+				</div>
+				<div>
+					<h4>&#8377; <%= place.price %></h4>
+				</div>
+				<div>
+					<p class="mb-1">Submitted By <b><a class="nondecorated_anchor" href="/user/<%= place.author.id %>"><%= place.author.username %></a></b></p>
+				</div>
+				<div class="d-flex justify-content-between">
+					<p class="text-muted inline-block">Posted <%=placePostTime%></p>
+					<div class="inline-block"><a href="/places/<%=place._id%>/buy" class="btn btn-primary">Buy Ticket Here!</a></div>
+				</div>
+				<% if(currentUser  && place.author.equals(currentUser)){ %>
+				<div>
+					<a class="btn btn-info" href="/places/<%=place._id%>/edit">Edit</a>
+					<form class="d-inline" action="/places/<%=place._id%>?_method=delete" method="post">
+						<button class="btn btn-danger">Delete</button>
+					</form>
+				</div>
+				<% } %>
+			</div>
+			<% if(place.ThingsToDo){%>
+			<section class="ttd mb-3">
+				<h4 class="ttd_title heading mb-2">Things To Do</h4>
+			</section>
+			<p class="ttd_desc"><%=place.ThingsToDo%></p>
+			<%}%>
+		</div>
+	<div class="col-md-8 mb-3">
+		<section class="mb-2 location">
+		<h5 class="location_title heading">Location</h5>
+	    </section>
+		<div id='map' class="m-3"></div>
+		<%if(place.reviews.length || currentUser){%>
+			<section class="review_sec mb-4">
+				<h3 class="review_title heading">Reviews</h3>
+			</section>
+			<%}%>
+		<% if(currentUser){%>
+			<form action="/places/<%=place._id%>/reviews" method="post" novalidate class="validated-form">
+				<div>
+					<fieldset class="starability-grow">
+						<input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+						<input type="radio" id="first-rate1" name="review[rating]" value="1" />
+						<label for="first-rate1" title="Terrible">1 star</label>
+						<input type="radio" id="first-rate2" name="review[rating]" value="2" />
+						<label for="first-rate2" title="Not good">2 stars</label>
+						<input type="radio" id="first-rate3" name="review[rating]" value="3" />
+						<label for="first-rate3" title="Average">3 stars</label>
+						<input type="radio" id="first-rate4" name="review[rating]" value="4" />
+						<label for="first-rate4" title="Very good">4 stars</label>
+						<input type="radio" id="first-rate5" name="review[rating]" value="5" />
+						<label for="first-rate5" title="Amazing">5 stars</label>
+					</fieldset>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="review">Write a review</label>
+					<textarea class="form-control" name="review[body]" id="review" cols="30" rows="3" required></textarea>
+					<div class="invalid-feedback">
+						Please write a review.
+					</div>
+				</div>
+				<button class="btn btn-success mb-3">Submit</button>
+			</form>
+			<% } %>
+			<% place.reviews.forEach(( review,i)=>{ %>
+			<div class="container-fluid review mb-3 pb-0">
+				<div class="review_header mb-1">
+					<div class="user d-inline-block"><img class="me-1 user_avatar" crossorigin="anonymous" src="<%=review.author.avatar[0].reviewAvatar %>" alt="">
+						<a class="nondecorated_anchor" href="/user/<%=review.author._id%>"><%= review.author.username %></a></div>
+					<form action="/places/<%= place._id %>/reviews/<%= review._id%>?_method=delete" method="post" class="d-inline-block" id="option">
+						<a class="btn dropstart" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">&#10247;</a>
+						<% if(currentUser  && review.author.equals(currentUser)){ %>
+						<ul class="dropdown-menu dlt">
+							<li><button class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+										<path fill-rule="evenodd"
+											d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+									</svg> Delete
+								</button>
+							</li>
+						</ul>
+						<% }else{ %>
+						<ul class="dropdown-menu abuse">
+							<li><button class="dropdown-item" type="button">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flag" viewBox="0 0 16 16">
+										<path
+											d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21.294 21.294 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21.317 21.317 0 0 0 14 7.655V1.222z" />
+									</svg> Report Abuse
+								</button>
+							</li>
+						</ul>
+						<% } %>
+					</form>
+				</div>
+				<p class="starability-result mb-2" data-rating="<%= review.rating %>"></p>
+				<p class="mb-1 review_body"><%= review.body %></p>
+				<p class="mb-2 review_time text-muted"><%= reviewPostTime[i]%></p>
+			</div>
+			<% }) %>
+		</div>
+	</div>
+</div>
+<%- include('../partials/subfooter') %>
+<script>
+	const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+	const place = <%-JSON.stringify(place) %> ;
+</script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="/javascript/showMap.js"></script>

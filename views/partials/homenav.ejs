@@ -1,0 +1,43 @@
+<nav id="mainNavBar" class="navbar navbar-expand-lg  sticky-top">
+	<div class="container-fluid ps-md-5">
+		<a class="navbar-brand" href="#"><img crossorigin="anonymous" src="https://res.cloudinary.com/dlds2z087/image/upload/w_223,h_77/v1669717428/India%20Tour/logo_uktaii.png" id="logo" alt="logo image"></a>
+		<button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fa-solid fa-bars nav-toggler"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link main_nav_link  d-inline-block" aria-current="page" href="/">Home</a>
+				</li>
+				<li class="nav-item d-inline-block">
+					<a class="nav-link main_nav_link  d-inline-block" href="/places">Places to visit</a>
+				</li>
+				<li class="nav-item d-inline-block">
+					<a class="nav-link main_nav_link  d-inline-block" href="/places/new">Add New Place</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				<%if(!currentUser){%>
+				<li class="nav-item">
+					<a href="/login" class="nav-link main_nav_link  d-inline-block">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register" class="nav-link main_nav_link  d-inline-block">Register</a>
+				</li>
+				<% }else{ %>
+				<li class="nav-item mobile">
+					<a href="/user/<%=currentUser._id%>" class="nav-link main_nav_link  d-inline-block"><%=currentUser.username %></a>
+				</li>
+				<li class="nav-item nav_avatar desktop">
+					<% if(currentUser.avatar.length){ %>
+					<img crossorigin="anonymous" src="<%=currentUser.avatar[0].smallAvatar %>" alt="">
+					<% } else { %>
+					<img crossorigin="anonymous" src="https://res.cloudinary.com/dlds2z087/image/upload/v1669354509/India%20Tour/default_avatar_fbyzfp.jpg" alt="">
+					<% } %>
+					<a href="/user/<%=currentUser._id%>" class="nav-link stretched-link main_nav_link"></a>
+				</li>
+				<% } %>
+			</ul>
+		</div>
+	</div>
+</nav>

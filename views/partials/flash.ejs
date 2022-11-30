@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/stylesheet/flash.css">
+<script src="https://kit.fontawesome.com/bdd9f947c4.js" crossorigin="anonymous"></script>
+<% if(success && success.length ) {%>
+<div class="alerts show">
+	<span class="fa-sharp fa-solid fa-circle-check"></span>
+	<span class="msg"><%= success %> </span>
+	<div class="close_btn">
+		<span class="fa-sharp fa-solid fa-xmark"></span>
+	</div>
+</div>
+<% } %>
+<% if(error && error.length ) {%>
+<div class="alerts show err">
+	<span class="fa-sharp fa-solid fa-circle-check"></span>
+	<span class="msg"><%= error %> </span>
+	<div class="close_btn">
+		<span class="fa-sharp fa-solid fa-xmark"></span>
+	</div>
+</div>
+<% } %>
+<script src="/javascript/flash.js"></script>

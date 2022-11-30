@@ -1,0 +1,158 @@
+<% layout('layout/boilerplate') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/themes/splide-skyblue.min.css" crossorigin="anonymous">
+<section class="bg-Img">
+	<%- include('../partials/homenav') %>
+	<div class="background-gradient"></div>
+	<div class="wrapper">
+		<div class="row">
+			<div class="index_desc  col-lg-12 px-3">
+				<h3 class="mb-0"><strong>Explore India like the back of your hand</strong></h3>
+				<p class="">From iconic attractions to amazing experiences, your journey begins here</p>
+			</div>
+		</div>
+		<form action="/places" method="get">
+			<div class="input-group search_wrapper">
+				<input type="search" class="form-control search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="q" placeholder="Where do you want to go?">
+				<button class="search_btn"><i class="fas fa-search"></i></button>
+			</div>
+		</form>
+	</div>
+</section>
+<section class="carousel_wrapper">
+	<div class="container splide py-5" id="slide1">
+		<h4 class="title_home ps-3">Top Destinations</h4>
+		<div class="splide__track pt-3">
+			<div class="splide__list">
+				<% for(let place of topDest){%>
+				<div class=" d-flex justify-content-center pt-3 splide__slide">
+					<div class="card mb-4 box" id="carousel">
+						<% if(place.images.length) {%>
+						<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="<%= place.images[0].thumbnail %>" alt="">
+						<% }else { %>
+						<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="https://res.cloudinary.com/dlds2z087/image/upload/w_300,h_250/v1668058755/raghu-nayyar-dskdujAQU44-unsplash_pmerzy.jpg" alt="">
+						<% } %>
+						<div class="card-body text_truncation">
+							<h5 class="card-title"><%=place.title %></h5>
+							<h6 class="card-subtitle mb-2 text-muted"><%=place.location%></h6>
+							<h6 class="card-subtitle mb-2">From &#x20B9; <%=place.price%></h6>
+							<p class="card-text text-truncate mb-1"><%=place.description%></p>
+							<a href="/places/<%= place._id %>" class="stretched-link"></a>
+						</div>
+					</div>
+				</div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="container splide my-5" id="slide2">
+	<h4 class="title_home ps-3">All Tourist Places</h4>
+	<div class="splide__track pt-3">
+		<div class="splide__list">
+			<div class="d-flex justify-content-center splide__slide">
+				<div class="card mb-4 region_card box">
+					<img class="rounded card-img-top img-fluid" id="region-img" crossorigin="anonymous" src="https://res.cloudinary.com/dlds2z087/image/upload/w_280,h_400,c_fill/v1669633350/India%20Tour/north_bwawbd.jpg" alt="">
+					<div class="card-img-overlay d-flex align-items-end">
+						<div class="card-title text-white" id="region-title">North India
+							<p class="card-text"><a class="stretched-link" href="/places/northplace">Explore <i class="fa-solid fa-chevron-right"></i></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% for(let place of northPlaces) {%>
+			<div class=" d-flex justify-content-center splide__slide">
+				<div class="card mb-4 box">
+					<% if(place.images.length) {%>
+					<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="<%= place.images[0].thumbnail %>" alt="">
+					<% }else { %>
+					<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="https://res.cloudinary.com/dlds2z087/image/upload/w_300,h_250/v1668058755/raghu-nayyar-dskdujAQU44-unsplash_pmerzy.jpg" alt="">
+					<% } %>
+					<div class="card-body text_truncation">
+						<h5 class="card-title"><%=place.title %></h5>
+						<h6 class="card-subtitle mb-2 text-muted"><%=place.location%></h6>
+						<h6 class="card-subtitle mb-2">From &#x20B9; <%=place.price%></h6>
+						<p class="card-text text-truncate mb-1"><%=place.description%></p>
+						<a href="/places/<%= place._id %>" class="stretched-link"></a>
+					</div>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</div>
+</div>
+
+<div class="container splide my-5" id="slide3">
+	<div class="splide__track pt-3">
+		<div class="splide__list">
+			<div class="d-flex justify-content-center splide__slide">
+				<div class="card mb-4 region_card box">
+					<img class="rounded card-img-top img-fluid" id="region-img" crossorigin="anonymous" src="https://res.cloudinary.com/dlds2z087/image/upload/w_280,h_400,c_fill/v1669633364/India%20Tour/boat_yq1oa3.jpg" alt="">
+					<div class="card-img-overlay d-flex align-items-end">
+						<div class="card-title text-white" id="region-title">South India
+							<p class="card-text"><a class="stretched-link" href="/places/southplace">Explore <i class="fa-solid fa-chevron-right"></i></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% for(let place of southPlaces) {%>
+			<div class="d-flex justify-content-center splide__slide">
+				<div class="card mb-4 box">
+					<% if(place.images.length) {%>
+					<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="<%= place.images[0].thumbnail %>" alt="">
+					<% }else { %>
+					<img class="img-fluid rounded-top" crossorigin="anonymous" id="cardImg" src="https://res.cloudinary.com/dlds2z087/image/upload/w_300,h_250/v1668058755/raghu-nayyar-dskdujAQU44-unsplash_pmerzy.jpg" alt="">
+					<% } %>
+					<div class="card-body text_truncation">
+						<h5 class="card-title"><%=place.title %></h5>
+						<h6 class="card-subtitle mb-2 text-muted"><%=place.location%></h6>
+						<h6 class="card-subtitle mb-2">From &#x20B9; <%=place.price%></h6>
+						<p class="card-text text-truncate mb-1"><%=place.description%></p>
+						<a href="/places/<%= place._id %>" class="stretched-link"></a>
+					</div>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</div>
+</div>
+<%- include('../partials/homefooter') %>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="/javascript/navbarscroll.js"></script>
+<script>
+	Splide.defaults = {
+		perPage: 4,
+		speed: 600,
+		pauseOnFocus: false,
+		drag: 'free',
+		snap: true,
+		gap: '1.2rem',
+		padding: '0.6rem',
+		perMove: 1,
+		focus: 0,
+		pagination: false,
+		breakpoints: {
+			1300: {
+				perPage: 3,
+				gap: '1rem',
+				padding: '.5rem',
+			},
+			1000: {
+				gap: '0.75rem',
+				padding: '.35rem',
+				perPage: 2,
+			},
+			780: {
+				perPage: 1,
+			},
+		},
+	}
+	new Splide('#slide1', {
+		type: 'loop',
+		autoplay: true,
+		interval: 6000,
+	}).mount();
+	new Splide('#slide2').mount();
+	new Splide('#slide3').mount();
+</script>

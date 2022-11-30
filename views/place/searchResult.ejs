@@ -1,0 +1,54 @@
+<% layout('layout/boilerplate') %>
+<section class="bg-Img">
+	<%- include('../partials/homenav') %>
+	<div class="background-gradient"></div>
+	<div class="wrapper">
+		<div class="row">
+			<div class="index_desc  col-lg-12 px-3">
+				<h3 class="mb-0"><strong>Explore India like the back of your hand</strong></h3>
+				<p class="">From iconic attractions to amazing experiences, your journey begins here</p>
+			</div>
+		</div>
+		<form action="/places" method="get">
+			<div class="input-group search_wrapper">
+				<input type="search" class="form-control search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="q" placeholder="Where do you want to go?">
+				<button class="search_btn"><i class="fas fa-search"></i></button>
+			</div>
+		</form>
+	</div>
+</section>
+<div class="container my-5">
+	<div class="mb-2">Results for:<strong> <%= search %></strong></div>
+	<ul class="ps-0">
+		<div class="row">
+			<% for(let place of places) {%>
+			<div class="col-md-12 d-flex justify-content-center">
+				<div class="card mb-3" id="resCard">
+					<div class="row g-0">
+						<% if(place.images.length) {%>
+						<div class="col-md-3">
+							<img class="img-fluid rounded-start" crossorigin="anonymous" id="resImg" src="<%= place.images[0].thumbnail %>" alt="">
+						</div>
+						<% }else { %>
+						<div class="col-md-3">
+							<img class="img-fluid rounded-start" crossorigin="anonymous" id="resImg" src="https://res.cloudinary.com/dlds2z087/image/upload/w_300,h_250/v1668058755/raghu-nayyar-dskdujAQU44-unsplash_pmerzy.jpg" alt="">
+						</div>
+						<% } %>
+						<div class="col-md-9">
+							<div class="card-body">
+								<h5 class="card-title"><%=place.title %></h5>
+								<h6 class="card-subtitle mb-2 text-muted"><%=place.location%></h6>
+								<p class="card-text text-truncate"><%=place.description%></p>
+								<a href="/places/<%= place._id %>" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</ul>
+</div>
+<%- include('../partials/homefooter') %>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="/javascript/navbarscroll.js"></script>
