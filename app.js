@@ -103,7 +103,6 @@ const connectSrcUrls = [
 	"https://events.mapbox.com",
 	"https://ka-f.fontawesome.com"
 ];
-const formActionSrc = ["https://formsubmit.co"];
 const fontSrcUrls = ["https://fonts.gstatic.com", "https://ka-f.fontawesome.com"];
 app.use(
 	helmet.contentSecurityPolicy({
@@ -115,7 +114,6 @@ app.use(
 			workerSrc: ["'self'", "blob:"],
 			childSrc: ["blob:"],
 			objectSrc: [],
-			formAction: ["self", ...formActionSrc],
 			imgSrc: [
 				"'self'",
 				"blob:",
