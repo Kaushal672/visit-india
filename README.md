@@ -39,18 +39,18 @@ https://visit-india.cyclic.app/
 
 
 ## Built with
-  - Front-end
-  - ejs
-  - MapBox APIs
-  - Bootstrap
-  - Back-end
-  - express
-  - mongoDB
-  - mongoose
-  - passport
-  - passport-local
-  - express-session
-  - Cyclic
+  * Front-end
+    - ejs
+    - MapBox APIs
+    - Bootstrap
+  * Back-end
+    - express
+    - mongoDB
+    - mongoose
+    - passport
+    - passport-local
+    - express-session
+    - Cyclic
   
 ## License
  MIT
