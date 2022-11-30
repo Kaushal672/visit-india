@@ -103,7 +103,7 @@ const connectSrcUrls = [
 	"https://events.mapbox.com",
 	"https://ka-f.fontawesome.com"
 ];
-const formActionSrc = ["https://formsubmit.co", "http://localhost:3000"];
+const formActionSrc = ["https://formsubmit.co"];
 const fontSrcUrls = ["https://fonts.gstatic.com", "https://ka-f.fontawesome.com"];
 app.use(
 	helmet.contentSecurityPolicy({
