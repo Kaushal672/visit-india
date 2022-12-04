@@ -291,7 +291,7 @@
 }
 
 .bg-Img {
-	background-image: url("/images/backgroundcopy.jpg");
+	background-image: url("/images/backgroundcopy.avif");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -501,11 +501,11 @@
 }
 
 .northslide {
-	background-image: url("/images/northslide1Copy.jpg");
+	background-image: url("/images/northslide1Copy.avif");
 	background-size: cover;
 }
 .southslide {
-	background-image: url("/images/mysorepalaceCopy.jpg");
+	background-image: url("/images/mysorepalaceCopy.avif");
 	background-size: cover;
 }
 
