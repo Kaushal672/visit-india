@@ -8,7 +8,7 @@ const ImageSchema = new Schema({
 });
 
 ImageSchema.virtual("thumbnail").get(function () {
-	return this.url.replace("/upload", "/upload/w_278,h_250,c_fill");
+	return this.url.replace("/upload", "/upload/w_278,h_220,c_fill");
 });
 
 ImageSchema.virtual("showImg").get(function () {
