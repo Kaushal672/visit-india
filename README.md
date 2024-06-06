@@ -6,8 +6,7 @@ It is a web application designed to add, review and share user's tour places aro
 Inspired from Colt Steele's YelpCamp project from web development bootcamp.
 
 ## Live Demo
-https://visit-india.cyclic.app/
-
+https://visit-india.onrender.com
 ## Features
 * Authentication:
   - Users can login or register with username and password.
