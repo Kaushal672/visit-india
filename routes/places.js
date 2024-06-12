@@ -4,7 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const places = require("../controllers/places");
 const multer = require("multer");
 const { storage } = require("../cloudinary");
-const upload = multer({ storage: storage, limits: { fileSize: 4000, files: 3 } });
+const upload = multer({ storage: storage, limits: { fileSize: 4194304, files: 3 } });
 const { isLoggedIn, validatePlace, isAuthor, isExist } = require("../middleware");
 
 router
